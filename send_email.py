@@ -10,7 +10,6 @@ from datetime import date
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
 
 # ── CONFIG — only change these ────────────────────────────────────────────────
 WEDDING_DATE   = date(2026, 12, 27)          # your wedding date
