@@ -230,7 +230,7 @@
     const WEDDING_DATE = "2026-12-27";   // ← your wedding date (YYYY-MM-DD)
     const HIS_NAME     = "Amogh";        // ← your fiancée's name
 
-    /* ── notes — {n} becomes the day count, {name} becomes her name ── */
+    /* ── notes — {n} becomes the day count, {name} becomes his name ── */
     const NOTES = [
       "The countdown keeps shrinking, but my excitement keeps growing. {n} days to go. ✨",
       "Forever starts in {n} days, but loving you started long ago. ❤️",
@@ -268,7 +268,7 @@
 
     function renderNote(idx) {
       const raw = NOTES[idx % NOTES.length];
-      return raw.replace(/{n}/g, days).replace(/{name}/g, HER_NAME);
+      return raw.replace(/{n}/g, days).replace(/{name}/g, HIS_NAME);
     }
 
     function cycleNote() {
