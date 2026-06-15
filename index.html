@@ -7,246 +7,75 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --rose:   #c47f9a;
-      --rose-light: #f5e6ed;
-      --rose-pale:  #fdf2f7;
-      --gold:   #c9a96e;
-      --ink:    #2e1f2b;
-      --muted:  #9a7f8e;
-      --cream:  #fdfaf8;
+      --rose: #c47f9a; --rose-light: #f5e6ed; --gold: #c9a96e;
+      --ink: #2e1f2b; --muted: #9a7f8e; --cream: #fdfaf8;
     }
-
     body {
-      font-family: 'Jost', sans-serif;
-      background: var(--cream);
-      color: var(--ink);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      position: relative;
+      font-family: 'Jost', sans-serif; background: var(--cream); color: var(--ink);
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; overflow: hidden; position: relative;
     }
-
-    /* ── floating petals ── */
-    .petals-layer {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .petal {
-      position: absolute;
-      top: -40px;
-      font-size: 16px;
-      opacity: 0;
-      animation: petalFall linear infinite;
-    }
+    .petals-layer { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .petal { position: absolute; top: -40px; font-size: 16px; opacity: 0; animation: petalFall linear infinite; }
     @keyframes petalFall {
-      0%   { transform: translateY(0)   rotate(0deg)   translateX(0); opacity: 0; }
+      0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; }
       10%  { opacity: 0.7; }
       90%  { opacity: 0.5; }
       100% { transform: translateY(110vh) rotate(540deg) translateX(40px); opacity: 0; }
     }
-
-    /* ── thin gold rule at top ── */
-    .rule {
-      width: 1px;
-      height: 56px;
-      background: linear-gradient(to bottom, transparent, var(--gold));
-      margin-bottom: 2rem;
-    }
-
-    /* ── eyebrow ── */
-    .eyebrow {
-      font-family: 'Jost', sans-serif;
-      font-weight: 200;
-      font-size: 10px;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1.8rem;
-    }
-
-    /* ── BIG number ── */
-    .count-wrap {
-      position: relative;
-      display: flex;
-      align-items: baseline;
-      gap: 0.15em;
-      margin-bottom: 0.5rem;
-    }
-    .count-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      font-size: clamp(96px, 22vw, 160px);
-      line-height: 0.9;
-      color: var(--rose);
-      letter-spacing: -0.02em;
-      animation: numReveal 1s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-    @keyframes numReveal {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .count-label {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      font-style: italic;
-      font-size: clamp(18px, 4vw, 26px);
-      color: var(--muted);
-      align-self: flex-end;
-      padding-bottom: 0.35em;
-      animation: numReveal 1s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    /* ── thin divider ── */
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 1.6rem 0;
-      animation: fadeUp 1s 0.35s ease both;
-    }
-    .divider::before, .divider::after {
-      content: '';
-      flex: 1;
-      height: 0.5px;
-      background: var(--gold);
-      opacity: 0.45;
-      max-width: 80px;
-    }
-    .divider-diamond {
-      width: 5px; height: 5px;
-      background: var(--gold);
-      transform: rotate(45deg);
-      opacity: 0.7;
-    }
-
-    /* ── love note ── */
-    .note {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-weight: 300;
-      font-size: clamp(17px, 3.5vw, 22px);
-      line-height: 1.7;
-      color: var(--ink);
-      text-align: center;
-      max-width: 380px;
-      padding: 0 1.5rem;
-      animation: fadeUp 1s 0.5s ease both;
-      min-height: 80px;
-      transition: opacity 0.4s ease;
-    }
-
-    /* ── wedding date tag ── */
-    .date-tag {
-      margin-top: 2.4rem;
-      font-family: 'Jost', sans-serif;
-      font-weight: 200;
-      font-size: 11px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--rose);
-      animation: fadeUp 1s 0.7s ease both;
-    }
-
-    /* ── next note button ── */
-    .next-btn {
-      margin-top: 2.2rem;
-      font-family: 'Jost', sans-serif;
-      font-weight: 300;
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--muted);
-      background: none;
-      border: 0.5px solid var(--rose);
-      border-radius: 40px;
-      padding: 9px 24px;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-      animation: fadeUp 1s 0.9s ease both;
-    }
-    .next-btn:hover {
-      background: var(--rose-light);
-      color: var(--rose);
-    }
-
-    /* ── bottom rule ── */
-    .rule-bottom {
-      margin-top: 2rem;
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to top, transparent, var(--gold));
-      animation: fadeUp 1s 1s ease both;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── main card ── */
-    .card {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+    .rule { width: 1px; height: 56px; background: linear-gradient(to bottom, transparent, var(--gold)); margin-bottom: 2rem; }
+    .eyebrow { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.8rem; }
+    .count-wrap { position: relative; display: flex; align-items: baseline; gap: 0.15em; margin-bottom: 0.5rem; }
+    .count-num { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(96px, 22vw, 160px); line-height: 0.9; color: var(--rose); letter-spacing: -0.02em; animation: numReveal 1s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    @keyframes numReveal { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .count-label { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: clamp(18px, 4vw, 26px); color: var(--muted); align-self: flex-end; padding-bottom: 0.35em; animation: numReveal 1s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .divider { display: flex; align-items: center; gap: 12px; margin: 1.6rem 0; animation: fadeUp 1s 0.35s ease both; }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 0.5px; background: var(--gold); opacity: 0.45; max-width: 80px; }
+    .divider-diamond { width: 5px; height: 5px; background: var(--gold); transform: rotate(45deg); opacity: 0.7; }
+    .note { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: clamp(17px, 3.5vw, 22px); line-height: 1.7; color: var(--ink); text-align: center; max-width: 380px; padding: 0 1.5rem; animation: fadeUp 1s 0.5s ease both; min-height: 80px; transition: opacity 0.4s ease; }
+    .date-tag { margin-top: 2.4rem; font-family: 'Jost', sans-serif; font-weight: 200; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--rose); animation: fadeUp 1s 0.7s ease both; }
+    .next-btn { margin-top: 2.2rem; font-family: 'Jost', sans-serif; font-weight: 300; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); background: none; border: 0.5px solid var(--rose); border-radius: 40px; padding: 9px 24px; cursor: pointer; transition: background 0.2s, color 0.2s; animation: fadeUp 1s 0.9s ease both; }
+    .next-btn:hover { background: var(--rose-light); color: var(--rose); }
+    .rule-bottom { margin-top: 2rem; width: 1px; height: 40px; background: linear-gradient(to top, transparent, var(--gold)); animation: fadeUp 1s 1s ease both; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .card { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
   </style>
 </head>
 <body>
-
   <div class="petals-layer" id="petals"></div>
-
   <div class="card">
     <div class="rule"></div>
     <p class="eyebrow">days until our wedding</p>
-
     <div class="count-wrap">
       <span class="count-num" id="daysNum">--</span>
       <span class="count-label">days</span>
     </div>
-
     <div class="divider"><div class="divider-diamond"></div></div>
-
     <p class="note" id="noteEl"></p>
-
     <p class="date-tag" id="weddingDateTag"></p>
-
     <button class="next-btn" onclick="cycleNote()">another message ✦</button>
-
     <div class="rule-bottom"></div>
   </div>
 
   <script>
-    /* ── CONFIG — change these two lines ── */
-    const WEDDING_DATE = "2026-12-27";   // ← your wedding date (YYYY-MM-DD)
-    const HIS_NAME     = "Amogh";        // ← your fiancée's name
+    const WEDDING_DATE = "2026-12-27";
+    const HIS_NAME     = "Amogh";
 
-    /* ── notes — {n} becomes the day count, {name} becomes his name ── */
     const NOTES = [
-      "The countdown keeps shrinking, but my excitement keeps growing. {n} days to go. ✨",
-      "Forever starts in {n} days, but loving you started long ago. ❤️",
-      "{n} days until my favorite notification becomes my favorite view.",
-      "{n} days until I can stop saying "my fiancé" and start saying "my husband." 😍",
-      "Countdown progress: {n} days left and approximately 1,000 hugs owed. 🤗",
-      "The best part of tomorrow? It's one day closer to marrying you. {n} days. ✨",
-      "Somewhere in the future, a bride and groom are smiling at these countdown messages. They're only {n} days away.",
-      "{n} days until I get my forever cuddle partner. ❤️",
+      "The countdown keeps shrinking, but my excitement keeps growing. {n} days to go.",
+      "Forever starts in {n} days, but loving you started long ago.",
+      "{n} days until I can stop saying 'my fiance' and start saying 'my husband'.",
+      "Countdown progress: {n} days left and approximately 1,000 hugs owed.",
+      "The best part of tomorrow? It's one day closer to marrying you. {n} days.",
+      "{n} days until I get my forever cuddle partner.",
       "Every sunrise brings us {n} days closer to the morning I call you my husband.",
       "In {n} days, I stop counting and start living — with you, forever.",
       "I've been saving my whole heart for this, {name}. Just {n} more days.",
       "Not long now. {n} days, and then a lifetime of waking up next to you.",
       "They say good things take time. {n} days, and you'll be worth every single one.",
       "I keep smiling at the most random moments — because in {n} days, you're mine. Officially.",
-      "{n} days left to be your fiancé. I can't wait to be your wife.",
+      "{n} days left to be your fiancee. I can't wait to be your wife.",
     ];
 
     function daysUntil(dateStr) {
@@ -283,7 +112,6 @@
 
     document.getElementById('noteEl').textContent = renderNote(0);
 
-    /* ── petals ── */
     const PETALS = ['✿','❀','✾','🌸'];
     const layer = document.getElementById('petals');
     for (let i = 0; i < 18; i++) {
