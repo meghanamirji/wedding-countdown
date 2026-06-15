@@ -2,8 +2,8 @@ name: Wedding Countdown Email
 
 on:
   schedule:
-    - cron: '30 2 * * *'  # 8:00 AM IST (UTC+5:30) every day
-  workflow_dispatch:        # allows you to run it manually too
+    - cron: '30 2 * * *'
+  workflow_dispatch:
 
 jobs:
   send-email:
@@ -20,6 +20,14 @@ jobs:
 
       - name: Install dependencies
         run: pip install python-dotenv
+
+      - name: Check secrets are loaded
+        env:
+          GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
+          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+          TO_EMAIL: ${{ secrets.TO_EMAIL }}
+        run: |
+          python -c "import os; p=os.environ.get('GMAIL_PASSWORD','NOT FOUND'); print(f'Password length: {len(p)}'); print(f'FROM: {os.environ.get(\"FROM_EMAIL\",\"NOT FOUND\")}')"
 
       - name: Send countdown email
         env:
