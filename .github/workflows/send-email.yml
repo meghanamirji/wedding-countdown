@@ -2,12 +2,13 @@ name: Wedding Countdown Email
 
 on:
   schedule:
-    - cron: '31 2 * * *'
+    - cron: '0 3 * * *'  # 8:30 AM IST (UTC+5:30) every day
   workflow_dispatch:
 
 jobs:
   send-email:
     runs-on: ubuntu-latest
+    if: github.event.repository.fork == false
 
     steps:
       - name: Checkout repository
@@ -20,14 +21,6 @@ jobs:
 
       - name: Install dependencies
         run: pip install python-dotenv
-
-      - name: Check secrets are loaded
-        env:
-          GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
-          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
-          TO_EMAIL: ${{ secrets.TO_EMAIL }}
-        run: |
-          python -c "import os; p=os.environ.get('GMAIL_PASSWORD','NOT FOUND'); print(f'Password length: {len(p)}'); print(f'FROM: {os.environ.get(\"FROM_EMAIL\",\"NOT FOUND\")}')"
 
       - name: Send countdown email
         env:
