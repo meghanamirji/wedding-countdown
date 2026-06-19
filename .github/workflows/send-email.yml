@@ -2,7 +2,7 @@ name: Wedding Countdown Email
 
 on:
   schedule:
-    - cron: '0 3 * * *'  # 8:30 AM IST (UTC+5:30) every day
+   - cron: '30 2 * * *'  # 8:00 AM IST (UTC+5:30) every day
   workflow_dispatch:
 
 jobs:
